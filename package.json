@@ -1,0 +1,19 @@
+{
+  "name": "marsrover",
+  "version": "1.0.0",
+  "description": "kata marsRover",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zdanyr/marsRover.git%1B%5BC.git"
+  },
+  "author": "danielaRodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zdanyr/marsRover.git%1B%5BC/issues"
+  },
+  "homepage": "https://github.com/zdanyr/marsRover.git%1B%5BC#readme"
+}
