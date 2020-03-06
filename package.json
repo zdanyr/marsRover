@@ -18,5 +18,8 @@
   "homepage": "https://github.com/zdanyr/marsRover.git%1B%5BC#readme",
   "devDependencies": {
     "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "prompt": "^1.0.0"
   }
 }
