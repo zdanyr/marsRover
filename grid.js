@@ -1,3 +1,5 @@
+const { initializePositionRover } = require("./position");
+
 const createGrid = dimension => {
   let array = new Array(dimension);
   for (let i = 0; i < dimension; i++) {
@@ -17,9 +19,4 @@ const initializeGrid = array => {
   return array;
 };
 
-const initializePositionRover = array => {
-  array[0][0] = 1;
-  return array;
-};
-
-module.exports = { createGrid };
+module.exports = { createGrid, initializeGrid };
