@@ -1,4 +1,4 @@
-const { initializePositionRover } = require("./position");
+const { initializePosition } = require("./position");
 
 const createGrid = dimension => {
   let array = new Array(dimension);
@@ -6,7 +6,7 @@ const createGrid = dimension => {
     array[i] = new Array(dimension);
   }
   array = initializeGrid(array);
-  array = initializePositionRover(array);
+  array = initializePosition(array);
   return array;
 };
 

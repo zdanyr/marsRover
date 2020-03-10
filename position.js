@@ -16,7 +16,7 @@ prompt.get(["username", "email"], function(err, result) {
   console.log("  email: " + result.email);
 });
 */
-const initializePositionRover = array => {
+const initializePosition = array => {
   array[0][0] = 1;
   return array;
 };
@@ -37,4 +37,4 @@ const turnRover = letter => {};
 
 const moveRover = letter => {};
 
-module.exports = { initializePositionRover };
+module.exports = { initializePosition };
