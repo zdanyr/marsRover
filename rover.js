@@ -10,6 +10,19 @@ class Rover {
     }
     direction ? (this.direction = direction) : (this.direction = "S");
   }
+
+  move(instruction) {
+    switch (instruction) {
+      case "f":
+        if (this.direction === "S") {
+          this.position.y = this.position.y + 1;
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
 }
 
 module.exports = { Rover };

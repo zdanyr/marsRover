@@ -4,7 +4,7 @@
   "description": "kata marsRover",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
