@@ -12,15 +12,41 @@ class Rover {
   }
 
   move(instruction) {
-    switch (instruction) {
-      case "f":
-        if (this.direction === "S") {
-          this.position.y = this.position.y + 1;
-        }
-        break;
-
-      default:
-        break;
+    if (instruction === "f") {
+      if (this.direction === "S") {
+        this.position.y = this.position.y + 1;
+        return;
+      }
+      if (this.direction === "N") {
+        this.position.y = this.position.y - 1;
+        return;
+      }
+      if (this.direction === "E") {
+        this.position.x = this.position.x + 1;
+        return;
+      }
+      if (this.direction === "W") {
+        this.position.x = this.position.x - 1;
+        return;
+      }
+    }
+    if (instruction === "b") {
+      if (this.direction === "S") {
+        this.position.y = this.position.y - 1;
+        return;
+      }
+      if (this.direction === "N") {
+        this.position.y = this.position.y + 1;
+        return;
+      }
+      if (this.direction === "E") {
+        this.position.x = this.position.x - 1;
+        return;
+      }
+      if (this.direction === "W") {
+        this.position.x = this.position.x + 1;
+        return;
+      }
     }
   }
 }

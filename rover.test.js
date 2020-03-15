@@ -26,14 +26,23 @@ describe("given a rover with an initial position and a direction", () => {
   });
 });
 
+//consider extremes of the grid
 describe("given user gives instructions to move the rover", () => {
   test.each`
-    direction | instruction | expectedX | expectedY
-    ${"S"}    | ${"f"}      | ${0}      | ${1}
+    direction | instruction | initialX | initialY | expectedX | expectedY
+    ${"S"}    | ${"f"}      | ${0}     | ${0}     | ${0}      | ${1}
+    ${"S"}    | ${"f"}      | ${1}     | ${1}     | ${1}      | ${2}
+    ${"N"}    | ${"f"}      | ${1}     | ${1}     | ${1}      | ${0}
+    ${"E"}    | ${"f"}      | ${1}     | ${1}     | ${2}      | ${1}
+    ${"W"}    | ${"f"}      | ${1}     | ${1}     | ${0}      | ${1}
+    ${"S"}    | ${"b"}      | ${1}     | ${1}     | ${1}      | ${0}
+    ${"N"}    | ${"b"}      | ${1}     | ${1}     | ${1}      | ${2}
+    ${"E"}    | ${"b"}      | ${1}     | ${1}     | ${0}      | ${1}
+    ${"W"}    | ${"b"}      | ${1}     | ${1}     | ${2}      | ${1}
   `(
-    "position should be ($expectedX, $expectedY) when instructions contains $instruction and current direction is $direction",
-    ({ direction, instruction, expectedX, expectedY }) => {
-      const rover = new Rover({ x: 0, y: 0 }, direction);
+    "position should be ($expectedX, $expectedY) when initial position is ($initialX, $initialY) and instructions contains $instruction and current direction is $direction",
+    ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
+      const rover = new Rover({ x: initialX, y: initialY }, direction);
       rover.move(instruction);
       expect(rover.position.x).toEqual(expectedX);
       expect(rover.position.y).toEqual(expectedY);
