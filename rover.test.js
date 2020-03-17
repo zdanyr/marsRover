@@ -54,6 +54,7 @@ describe("given user gives instructions to move the rover", () => {
     ${"N"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"E"}
     ${"E"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"S"}
     ${"W"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"N"}
+    ${"W"}    | ${"l"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"S"}
   `(
     "new direction should be $expectedDirection and position should remain as ($expectedX, $expectedY) when initial position is ($initialX, $initialY) and instructions contains $instruction and current direction is $direction",
     ({
