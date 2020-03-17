@@ -40,12 +40,36 @@ describe("given user gives instructions to move the rover", () => {
     ${"E"}    | ${"b"}      | ${1}     | ${1}     | ${0}      | ${1}
     ${"W"}    | ${"b"}      | ${1}     | ${1}     | ${2}      | ${1}
   `(
-    "position should be ($expectedX, $expectedY) when initial position is ($initialX, $initialY) and instructions contains $instruction and current direction is $direction",
+    "new position should be ($expectedX, $expectedY) when initial position is ($initialX, $initialY) and instructions contains $instruction and current direction is $direction",
     ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
       const rover = new Rover({ x: initialX, y: initialY }, direction);
       rover.move(instruction);
       expect(rover.position.x).toEqual(expectedX);
       expect(rover.position.y).toEqual(expectedY);
+    }
+  );
+  test.each`
+    direction | instruction | initialX | initialY | expectedX | expectedY | expectedDirection
+    ${"S"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"W"}
+    ${"N"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"E"}
+    ${"E"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"S"}
+    ${"W"}    | ${"r"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${"N"}
+  `(
+    "new direction should be $expectedDirection and position should remain as ($expectedX, $expectedY) when initial position is ($initialX, $initialY) and instructions contains $instruction and current direction is $direction",
+    ({
+      direction,
+      instruction,
+      initialX,
+      initialY,
+      expectedX,
+      expectedY,
+      expectedDirection
+    }) => {
+      const rover = new Rover({ x: initialX, y: initialY }, direction);
+      rover.move(instruction);
+      expect(rover.position.x).toEqual(expectedX);
+      expect(rover.position.y).toEqual(expectedY);
+      expect(rover.direction).toEqual(expectedDirection);
     }
   );
 });

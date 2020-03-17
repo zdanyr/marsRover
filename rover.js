@@ -18,6 +18,9 @@ class Rover {
     if (instruction === "b") {
       this.moveBackward();
     }
+    if (instruction === "r") {
+      this.moveRight();
+    }
   }
 
   moveForward() {
@@ -53,6 +56,24 @@ class Rover {
     }
     if (this.direction === "W") {
       this.position.x = this.position.x + 1;
+      return;
+    }
+  }
+  moveRight() {
+    if (this.direction === "S") {
+      this.direction = "W";
+      return;
+    }
+    if (this.direction === "N") {
+      this.direction = "E";
+      return;
+    }
+    if (this.direction === "E") {
+      this.direction = "S";
+      return;
+    }
+    if (this.direction === "W") {
+      this.direction = "N";
       return;
     }
   }
