@@ -1,4 +1,4 @@
-const createGrid = dimension => {
+const createWorld = dimension => {
   let array = new Array(dimension);
 
   for (let i = 0; i < dimension; i++) {
@@ -7,4 +7,4 @@ const createGrid = dimension => {
   return array;
 };
 
-module.exports = { createGrid };
+module.exports = { createWorld };

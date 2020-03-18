@@ -1,4 +1,9 @@
 const { Rover } = require("./rover");
+const createRover = () => {
+  const initialPosition = { x: 1, y: 1 };
+  const initialDirection = "N";
+  const rover = new Rover(initialPosition, initialDirection);
+};
 
 describe("given a rover", () => {
   test("it should set initial location to (0,0)", () => {
