@@ -75,6 +75,18 @@ describe("given user gives instructions to move the rover", () => {
   );
 });
 
-/*
- 
- */
+// describe("the rover should wrap from one edge of the grid to another", () => {
+//   test.each`
+//     direction | instruction | initialX | initialY | expectedX | expectedY
+//     ${"E"}    | ${"f"}      | ${2}     | ${0}     | ${0}      | ${0}
+//   `(
+//     "given the rover is at the edge of the grid, when moving forward it should wrap to the start of the grid",
+//     ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
+//       const world = createGrid(3);
+//       const rover = new Rover({ x: initialX, y: initialY }, direction,world);
+//       rover.move(instruction);
+//       expect(rover.position.x).toEqual(expectedX);
+//       expect(rover.position.y).toEqual(expectedY);
+//     }
+//   );
+// });

@@ -26,39 +26,47 @@ class Rover {
     }
   }
 
+  moveX(delta) {
+    this.position.x += delta;
+  }
+
+  moveY(delta) {
+    this.position.y += delta;
+  }
+
   moveForward() {
     if (this.direction === "S") {
-      this.position.y = this.position.y + 1;
+      this.moveY(1);
       return;
     }
     if (this.direction === "N") {
-      this.position.y = this.position.y - 1;
+      this.moveY(-1);
       return;
     }
     if (this.direction === "E") {
-      this.position.x = this.position.x + 1;
+      this.moveX(1);
       return;
     }
     if (this.direction === "W") {
-      this.position.x = this.position.x - 1;
+      this.moveX(-1);
       return;
     }
   }
   moveBackward() {
     if (this.direction === "S") {
-      this.position.y = this.position.y - 1;
+      this.moveY(-1);
       return;
     }
     if (this.direction === "N") {
-      this.position.y = this.position.y + 1;
+      this.moveY(1);
       return;
     }
     if (this.direction === "E") {
-      this.position.x = this.position.x - 1;
+      this.moveX(-1);
       return;
     }
     if (this.direction === "W") {
-      this.position.x = this.position.x + 1;
+      this.moveX(1);
       return;
     }
   }
