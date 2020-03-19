@@ -1,10 +1,10 @@
 const createWorld = dimension => {
-  let array = new Array(dimension);
+  let world = new Array(dimension);
 
   for (let i = 0; i < dimension; i++) {
-    array[i] = new Array(dimension);
+    world[i] = new Array(dimension);
   }
-  return array;
+  return world;
 };
 
 module.exports = { createWorld };

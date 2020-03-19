@@ -1,14 +1,15 @@
 class Rover {
-  constructor(initialPosition, direction) {
-    if (!initialPosition) {
+  constructor(initialPosition, direction, world) {
+    if (initialPosition) {
+      this.position = initialPosition;
+    } else {
       this.position = {
         x: 0,
         y: 0
       };
-    } else {
-      this.position = initialPosition;
     }
     direction ? (this.direction = direction) : (this.direction = "S");
+    this.world = world;
   }
 
   move(instruction) {
