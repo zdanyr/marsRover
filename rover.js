@@ -29,10 +29,28 @@ class Rover {
 
   moveX(delta) {
     this.position.x += delta;
+
+    if (this.position.x === this.world.length) {
+      this.position.x = 0;
+      return;
+    }
+    if (this.position.x === -1) {
+      this.position.x = this.world.length - 1;
+      return;
+    }
   }
 
   moveY(delta) {
     this.position.y += delta;
+
+    if (this.position.y === this.world.length) {
+      this.position.y = 0;
+      return;
+    }
+    if (this.position.y === -1) {
+      this.position.y = this.world.length - 1;
+      return;
+    }
   }
 
   moveForward() {

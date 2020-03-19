@@ -40,7 +40,6 @@ describe("given a rover with an initial position and a direction", () => {
   });
 });
 
-// //consider extremes of the grid
 describe("given user gives instructions to move the rover", () => {
   test.each`
     direction | instruction | initialX | initialY | expectedX | expectedY
@@ -92,18 +91,25 @@ describe("given user gives instructions to move the rover", () => {
   );
 });
 
-// // // describe("the rover should wrap from one edge of the grid to another", () => {
-// // //   test.each`
-// // //     direction | instruction | initialX | initialY | expectedX | expectedY
-// // //     ${"E"}    | ${"f"}      | ${2}     | ${0}     | ${0}      | ${0}
-// // //   `(
-// // //     "given the rover is at the edge of the grid, when moving forward it should wrap to the start of the grid",
-// // //     ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
-// // //       const world = createGrid(3);
-// // //       const rover = new Rover({ x: initialX, y: initialY }, direction,world);
-// // //       rover.move(instruction);
-// // //       expect(rover.position.x).toEqual(expectedX);
-// // //       expect(rover.position.y).toEqual(expectedY);
-// // //     }
-// // //   );
-// // // });
+describe("the rover should wrap from one edge of the grid to another", () => {
+  test.each`
+    direction | instruction | initialX | initialY | expectedX | expectedY
+    ${"W"}    | ${"f"}      | ${0}     | ${0}     | ${2}      | ${0}
+    ${"W"}    | ${"b"}      | ${2}     | ${0}     | ${0}      | ${0}
+    ${"E"}    | ${"b"}      | ${0}     | ${0}     | ${2}      | ${0}
+    ${"E"}    | ${"f"}      | ${2}     | ${0}     | ${0}      | ${0}
+    ${"N"}    | ${"f"}      | ${0}     | ${0}     | ${0}      | ${2}
+    ${"N"}    | ${"b"}      | ${0}     | ${2}     | ${0}      | ${0}
+    ${"S"}    | ${"f"}      | ${0}     | ${2}     | ${0}      | ${0}
+    ${"S"}    | ${"b"}      | ${0}     | ${0}     | ${0}      | ${2}
+  `(
+    "given the rover is at the edge of the grid, when moving forward it should wrap to the start of the grid",
+    ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
+      const world = createWorld(3);
+      const rover = new Rover({ x: initialX, y: initialY }, direction, world);
+      rover.move(instruction);
+      expect(rover.position.x).toEqual(expectedX);
+      expect(rover.position.y).toEqual(expectedY);
+    }
+  );
+});
