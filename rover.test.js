@@ -11,7 +11,7 @@ describe("given a rover", () => {
 
   test("should set initial facing direction to S", () => {
     const world = createWorld(3);
-    const rover = new Rover(world);
+    const rover = new Rover("", "", world);
     expect(rover.direction).toEqual("S");
   });
 });
@@ -113,3 +113,28 @@ describe("the rover should wrap from one edge of the grid to another", () => {
     }
   );
 });
+
+describe("given the rover moves", () => {
+  test("when there is an obstacle in the next potential location, the rover should detect it", () => {
+    const world = createWorld(3);
+    const rover = new Rover({ x: 1, y: 0 }, "S", world);
+    rover.move("f");
+    rover.isThereAnObstacle();
+    expect(rover.isThereAnObstacle()).toBe(true);
+  });
+  test("when there is not an obstacle in the next potential location, the rover should know there is not an obstacle", () => {
+    const world = createWorld(3);
+    const rover = new Rover({ x: 1, y: 1 }, "S", world);
+    rover.move("f");
+    rover.isThereAnObstacle();
+    expect(rover.isThereAnObstacle()).toBe(undefined);
+  });
+  test("when it detects an obstacle it should report its location", () => {
+    const world = createWorld(3);
+    const rover = new Rover({ x: 1, y: 0 }, "S", world);
+    rover.move("f");
+    expect(rover.obstaclePosition()).toEqual({ x: 1, y: 1 });
+  });
+});
+
+//add test cases for combination of commands

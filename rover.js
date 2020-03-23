@@ -10,6 +10,12 @@ class Rover {
     }
     direction ? (this.direction = direction) : (this.direction = "S");
     this.world = world;
+    this.initializeObstacles();
+  }
+
+  initializeObstacles() {
+    this.world[1][1] = true;
+    this.world[2][2] = true;
   }
 
   move(instruction) {
@@ -25,32 +31,18 @@ class Rover {
     if (instruction === "l") {
       this.moveLeft();
     }
-  }
-
-  moveX(delta) {
-    this.position.x += delta;
-
-    if (this.position.x === this.world.length) {
-      this.position.x = 0;
-      return;
-    }
-    if (this.position.x === -1) {
-      this.position.x = this.world.length - 1;
-      return;
+    if (this.isThereAnObstacle()) {
+      return this.obstaclePosition();
     }
   }
 
-  moveY(delta) {
-    this.position.y += delta;
-
-    if (this.position.y === this.world.length) {
-      this.position.y = 0;
-      return;
-    }
-    if (this.position.y === -1) {
-      this.position.y = this.world.length - 1;
-      return;
-    }
+  isThereAnObstacle() {
+    let x = this.position.x;
+    let y = this.position.y;
+    return this.world[x][y];
+  }
+  obstaclePosition() {
+    return { x: this.position.x, y: this.position.y };
   }
 
   moveForward() {
@@ -86,6 +78,30 @@ class Rover {
     }
     if (this.direction === "W") {
       this.moveX(1);
+      return;
+    }
+  }
+  moveX(delta) {
+    this.position.x += delta;
+
+    if (this.position.x === this.world.length) {
+      this.position.x = 0;
+      return;
+    }
+    if (this.position.x === -1) {
+      this.position.x = this.world.length - 1;
+      return;
+    }
+  }
+  moveY(delta) {
+    this.position.y += delta;
+
+    if (this.position.y === this.world.length) {
+      this.position.y = 0;
+      return;
+    }
+    if (this.position.y === -1) {
+      this.position.y = this.world.length - 1;
       return;
     }
   }
