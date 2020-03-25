@@ -1,5 +1,7 @@
 class Rover {
   constructor(initialPosition, direction, world) {
+    this.obstacleDetected = [];
+
     if (initialPosition) {
       this.position = initialPosition;
     } else {
@@ -15,7 +17,6 @@ class Rover {
 
   initializeObstacles() {
     this.world[1][1] = true;
-    this.world[2][2] = true;
   }
 
   move(instruction) {
@@ -31,18 +32,28 @@ class Rover {
     if (instruction === "l") {
       this.moveLeft();
     }
-    if (this.isThereAnObstacle()) {
-      return this.obstaclePosition();
-    }
+    this.obstacleDetection(instruction);
   }
 
-  isThereAnObstacle() {
-    let x = this.position.x;
-    let y = this.position.y;
-    return this.world[x][y];
+  obstacleDetection(instruction) {
+    if (this.isThereAnObstacle()) {
+      this.reportObstaclePosition();
+      this.move(this.oppositeMovements(instruction));
+    }
   }
-  obstaclePosition() {
-    return { x: this.position.x, y: this.position.y };
+  oppositeMovements(instruction) {
+    switch (instruction) {
+      case "f":
+        return "b";
+      case "b":
+        return "f";
+    }
+  }
+  isThereAnObstacle() {
+    return this.world[this.position.x][this.position.y];
+  }
+  reportObstaclePosition() {
+    this.obstacleDetected.push({ x: this.position.x, y: this.position.y });
   }
 
   moveForward() {

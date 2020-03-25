@@ -13,3 +13,8 @@ The rover receives a character array of commands.
 
 (1,1) busy
 (0,1)move forw E>(1,1)
+
+(0,0) S ff
+(0,2) >> report
+
+(0,1)
