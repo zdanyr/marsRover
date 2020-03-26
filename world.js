@@ -1,9 +1,6 @@
 const createWorld = dimension => {
-  let world = new Array(dimension);
+  let world = new Array(dimension).fill(new Array(dimension));
 
-  for (let i = 0; i < dimension; i++) {
-    world[i] = new Array(dimension);
-  }
   return getWorldWithObstacles(world);
 };
 

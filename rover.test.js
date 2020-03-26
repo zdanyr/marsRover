@@ -115,17 +115,18 @@ describe("the rover should wrap from one edge of the grid to another", () => {
 });
 
 describe("given the rover moves", () => {
-  test("when there is an obstacle in the next potential location, the rover should detect it", () => {
+  test.only("when there is an obstacle in the next potential location, should thrown an error ", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    rover.moveForward();
-    expect(rover.isThereAnObstacle()).toBe(true);
+    expect(() => {
+      rover.moveForward();
+    }).toThrowError("Obstacle found");
   });
   test("when there is not an obstacle in the next potential location, the rover should know there is not an obstacle", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 1 }, "S", world);
     rover.move("f");
-    expect(rover.isThereAnObstacle()).toBe(undefined);
+    expect(rover.isThereAnObstacleOld()).toBe(undefined);
   });
   test("when it detects an obstacle it should report its location", () => {
     const world = createWorld(3);
