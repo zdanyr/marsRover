@@ -12,11 +12,6 @@ class Rover {
     }
     direction ? (this.direction = direction) : (this.direction = "S");
     this.world = world;
-    this.initializeObstacles();
-  }
-
-  initializeObstacles() {
-    this.world[1][1] = true;
   }
 
   move(instruction) {

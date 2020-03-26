@@ -150,4 +150,8 @@ describe("given the rover moves", () => {
   });
 });
 
+describe("given the rover receives a character array of commands", () => {
+  test("", () => {});
+});
+
 //add test cases for combination of commands
