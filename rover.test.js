@@ -114,38 +114,46 @@ describe("the rover should wrap from one edge of the grid to another", () => {
   );
 });
 
-describe("given the rover moves", () => {
-  test.only("when there is an obstacle in the next potential location, should thrown an error ", () => {
+describe.only("given the rover moves", () => {
+  test("when there is an obstacle in the next potential location, should thrown an error ", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 0 }, "S", world);
     expect(() => {
       rover.moveForward();
-    }).toThrowError("Obstacle found");
+    }).toThrowError();
   });
   test("when there is not an obstacle in the next potential location, the rover should know there is not an obstacle", () => {
     const world = createWorld(3);
-    const rover = new Rover({ x: 1, y: 1 }, "S", world);
-    rover.move("f");
-    expect(rover.isThereAnObstacleOld()).toBe(undefined);
+    const rover = new Rover({ x: 0, y: 0 }, "S", world);
+    expect(() => {
+      rover.moveForward();
+    }).not.toThrowError(`Obstacle found at position (0,1)`);
+    expect(rover.position.x).toEqual(0);
+    expect(rover.position.y).toEqual(1);
   });
   test("when it detects an obstacle it should report its location", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    rover.move("f");
     expected = [{ x: 1, y: 1 }];
-    expect(rover.obstacleDetected).toEqual(expect.arrayContaining(expected));
+    expect(() => {
+      rover.moveForward();
+    }).toThrowError(`Obstacle found at position (1,1)`);
   });
-  test("when it detects an obstacle it should move up to the last possible point - which means: revert last instruction", () => {
+  test("when it detects an obstacle it should move up to the last possible point", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    rover.move("f");
+    expect(() => {
+      rover.moveForward();
+    }).toThrowError(`Obstacle found at position (1,1)`);
     expect(rover.position.x).toEqual(1);
     expect(rover.position.y).toEqual(0);
   });
   test("when it detects an obstacle it should move up to the last possible point - which means: revert last instruction", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 1, y: 2 }, "S", world);
-    rover.move("b");
+    expect(() => {
+      rover.moveBackward();
+    }).toThrowError(`Obstacle found at position (1,1)`);
     expect(rover.position.x).toEqual(1);
     expect(rover.position.y).toEqual(2);
   });

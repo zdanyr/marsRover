@@ -31,26 +31,26 @@ class Rover {
     //this.obstacleDetection(instruction);
   }
 
-  obstacleDetection(instruction) {
-    if (this.isThereAnObstacleOld()) {
-      this.reportObstaclePosition();
-      this.move(this.oppositeMovements(instruction));
-    }
-  }
-  oppositeMovements(instruction) {
-    switch (instruction) {
-      case "f":
-        return "b";
-      case "b":
-        return "f";
-    }
-  }
-  isThereAnObstacleOld() {
-    return this.world[this.position.x][this.position.y];
-  }
+  // obstacleDetection(instruction) {
+  //   if (this.isThereAnObstacleOld()) {
+  //     this.reportObstaclePosition();
+  //     this.move(this.oppositeMovements(instruction));
+  //   }
+  // }
+  // oppositeMovements(instruction) {
+  //   switch (instruction) {
+  //     case "f":
+  //       return "b";
+  //     case "b":
+  //       return "f";
+  //   }
+  // }
+  // isThereAnObstacleOld() {
+  //   return this.world[this.position.x][this.position.y];
+  // }
 
   isThereAnObstacle(x, y) {
-    if (this.world[x][y]) throw Error("Obstacle found");
+    if (this.world[x][y]) throw Error(`Obstacle found at position (${x},${y})`);
   }
 
   reportObstaclePosition() {
