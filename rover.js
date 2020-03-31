@@ -1,7 +1,7 @@
 class Rover {
   constructor(initialPosition, direction, world) {
     this.obstacleDetected = [];
-
+    this.world = world;
     if (initialPosition) {
       this.position = initialPosition;
     } else {
@@ -11,7 +11,6 @@ class Rover {
       };
     }
     direction ? (this.direction = direction) : (this.direction = "S");
-    this.world = world;
   }
 
   move(instruction) {
@@ -27,47 +26,6 @@ class Rover {
     if (instruction === "l") {
       this.moveLeft();
     }
-
-    //this.obstacleDetection(instruction);
-  }
-
-  // obstacleDetection(instruction) {
-  //   if (this.isThereAnObstacleOld()) {
-  //     this.reportObstaclePosition();
-  //     this.move(this.oppositeMovements(instruction));
-  //   }
-  // }
-  // oppositeMovements(instruction) {
-  //   switch (instruction) {
-  //     case "f":
-  //       return "b";
-  //     case "b":
-  //       return "f";
-  //   }
-  // }
-  // isThereAnObstacleOld() {
-  //   return this.world[this.position.x][this.position.y];
-  // }
-
-  // reportObstaclePosition() {
-  //   this.obstacleDetected.push({ x: this.position.x, y: this.position.y });
-  // }
-
-  isThereAnObstacle(x, y) {
-    if (x === this.world.length) {
-      x = 0;
-    }
-    if (x === -1) {
-      x = this.world.length - 1;
-    }
-    if (y === this.world.length) {
-      y = 0;
-    }
-    if (y === -1) {
-      y = this.world.length - 1;
-    }
-
-    if (this.world[x][y]) throw Error(`Obstacle found at position (${x},${y})`);
   }
 
   moveForward() {
@@ -87,8 +45,6 @@ class Rover {
       return;
     }
     if (this.direction === "W") {
-      // move is there an obstacle to moveX
-
       this.isThereAnObstacle(this.position.x - 1, this.position.y);
       this.moveX(-1);
       return;
@@ -175,6 +131,32 @@ class Rover {
       this.direction = "S";
       return;
     }
+  }
+
+  isThereAnObstacle(possibleXPosition, possibleYPosition) {
+    if (possibleXPosition === this.world.length) {
+      possibleXPosition = 0;
+    }
+    if (possibleXPosition === -1) {
+      possibleXPosition = this.world.length - 1;
+    }
+    if (possibleYPosition === this.world.length) {
+      possibleYPosition = 0;
+    }
+    if (possibleYPosition === -1) {
+      possibleYPosition = this.world.length - 1;
+    }
+
+    if (this.world[possibleXPosition][possibleYPosition]) {
+      this.throwExceptionGenerateReport(possibleXPosition, possibleYPosition);
+    }
+  }
+
+  throwExceptionGenerateReport(possibleXPosition, possibleYPosition) {
+    this.obstacleDetected.push({ x: possibleXPosition, y: possibleYPosition });
+    throw Error(
+      `Obstacle found at position (${possibleXPosition},${possibleYPosition})`
+    );
   }
 }
 
