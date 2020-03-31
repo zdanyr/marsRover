@@ -95,13 +95,12 @@ describe("the rover should wrap from one edge of the grid to another", () => {
   test.each`
     direction | instruction | initialX | initialY | expectedX | expectedY
     ${"W"}    | ${"f"}      | ${0}     | ${0}     | ${2}      | ${0}
+    ${"W"}    | ${"f"}      | ${0}     | ${0}     | ${2}      | ${0}
     ${"W"}    | ${"b"}      | ${2}     | ${0}     | ${0}      | ${0}
     ${"E"}    | ${"b"}      | ${0}     | ${0}     | ${2}      | ${0}
     ${"E"}    | ${"f"}      | ${2}     | ${0}     | ${0}      | ${0}
-    ${"N"}    | ${"f"}      | ${0}     | ${0}     | ${0}      | ${2}
     ${"N"}    | ${"b"}      | ${0}     | ${2}     | ${0}      | ${0}
     ${"S"}    | ${"f"}      | ${0}     | ${2}     | ${0}      | ${0}
-    ${"S"}    | ${"b"}      | ${0}     | ${0}     | ${0}      | ${2}
   `(
     "given the rover is at the edge of the grid, when moving forward it should wrap to the start of the grid",
     ({ direction, instruction, initialX, initialY, expectedX, expectedY }) => {
@@ -114,15 +113,36 @@ describe("the rover should wrap from one edge of the grid to another", () => {
   );
 });
 
-describe.only("given the rover moves", () => {
-  test("when there is an obstacle in the next potential location, should thrown an error ", () => {
-    const world = createWorld(3);
-    const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    expect(() => {
-      rover.moveForward();
-    }).toThrowError();
-  });
-  test("when there is not an obstacle in the next potential location, the rover should know there is not an obstacle", () => {
+describe("given the rover moves", () => {
+  test.each`
+    direction | instruction | initialX | initialY | expectedX | expectedY | expectedError
+    ${"S"}    | ${"f"}      | ${1}     | ${0}     | ${1}      | ${0}      | ${`Obstacle found at position (1,1)`}
+    ${"S"}    | ${"b"}      | ${1}     | ${2}     | ${1}      | ${2}      | ${`Obstacle found at position (1,1)`}
+    ${"S"}    | ${"b"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${`Obstacle found at position (0,2)`}
+    ${"S"}    | ${"f"}      | ${0}     | ${1}     | ${0}      | ${1}      | ${`Obstacle found at position (0,2)`}
+    ${"N"}    | ${"f"}      | ${0}     | ${0}     | ${0}      | ${0}      | ${`Obstacle found at position (0,2)`}
+    ${"N"}    | ${"b"}      | ${0}     | ${1}     | ${0}      | ${1}      | ${`Obstacle found at position (0,2)`}
+  `(
+    "when there is an obstacle in the next potential location, should thrown an error with message $expectedError",
+    ({
+      direction,
+      instruction,
+      initialX,
+      initialY,
+      expectedX,
+      expectedY,
+      expectedError
+    }) => {
+      const world = createWorld(3);
+      const rover = new Rover({ x: initialX, y: initialY }, direction, world);
+      expect(() => {
+        rover.move(instruction);
+      }).toThrowError(expectedError);
+      expect(rover.position.x).toEqual(expectedX);
+      expect(rover.position.y).toEqual(expectedY);
+    }
+  );
+  test("when there is NOT an obstacle in the next potential location, the rover should know there is not an obstacle", () => {
     const world = createWorld(3);
     const rover = new Rover({ x: 0, y: 0 }, "S", world);
     expect(() => {
@@ -130,32 +150,6 @@ describe.only("given the rover moves", () => {
     }).not.toThrowError(`Obstacle found at position (0,1)`);
     expect(rover.position.x).toEqual(0);
     expect(rover.position.y).toEqual(1);
-  });
-  test("when it detects an obstacle it should report its location", () => {
-    const world = createWorld(3);
-    const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    expected = [{ x: 1, y: 1 }];
-    expect(() => {
-      rover.moveForward();
-    }).toThrowError(`Obstacle found at position (1,1)`);
-  });
-  test("when it detects an obstacle it should move up to the last possible point", () => {
-    const world = createWorld(3);
-    const rover = new Rover({ x: 1, y: 0 }, "S", world);
-    expect(() => {
-      rover.moveForward();
-    }).toThrowError(`Obstacle found at position (1,1)`);
-    expect(rover.position.x).toEqual(1);
-    expect(rover.position.y).toEqual(0);
-  });
-  test("when it detects an obstacle it should move up to the last possible point - which means: revert last instruction", () => {
-    const world = createWorld(3);
-    const rover = new Rover({ x: 1, y: 2 }, "S", world);
-    expect(() => {
-      rover.moveBackward();
-    }).toThrowError(`Obstacle found at position (1,1)`);
-    expect(rover.position.x).toEqual(1);
-    expect(rover.position.y).toEqual(2);
   });
 });
 

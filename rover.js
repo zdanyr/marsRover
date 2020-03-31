@@ -49,12 +49,25 @@ class Rover {
   //   return this.world[this.position.x][this.position.y];
   // }
 
-  isThereAnObstacle(x, y) {
-    if (this.world[x][y]) throw Error(`Obstacle found at position (${x},${y})`);
-  }
+  // reportObstaclePosition() {
+  //   this.obstacleDetected.push({ x: this.position.x, y: this.position.y });
+  // }
 
-  reportObstaclePosition() {
-    this.obstacleDetected.push({ x: this.position.x, y: this.position.y });
+  isThereAnObstacle(x, y) {
+    if (x === this.world.length) {
+      x = 0;
+    }
+    if (x === -1) {
+      x = this.world.length - 1;
+    }
+    if (y === this.world.length) {
+      y = 0;
+    }
+    if (y === -1) {
+      y = this.world.length - 1;
+    }
+
+    if (this.world[x][y]) throw Error(`Obstacle found at position (${x},${y})`);
   }
 
   moveForward() {
@@ -74,6 +87,8 @@ class Rover {
       return;
     }
     if (this.direction === "W") {
+      // move is there an obstacle to moveX
+
       this.isThereAnObstacle(this.position.x - 1, this.position.y);
       this.moveX(-1);
       return;

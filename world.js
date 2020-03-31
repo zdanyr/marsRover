@@ -7,6 +7,7 @@ const createWorld = dimension => {
 getWorldWithObstacles = world => {
   let newWorld = world.map(row => [...row]);
   newWorld[1][1] = true;
+  newWorld[0][2] = true;
   return newWorld;
 };
 
